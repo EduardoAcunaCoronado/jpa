@@ -24,7 +24,23 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        create();
+        update();
+    }
+
+    @Transactional
+    public void update() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el id del person:");
+        Long id = sc.nextLong();
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        optionalPerson.ifPresent(person -> {
+            System.out.println("Introduce el lenguaje de programación del person:");
+            String programmingLanguage = sc.next();
+            person.setProgrammingLanguage(programmingLanguage);
+            Person personDb = personRepository.save(person);
+            System.out.println(personDb);
+        });
+        sc.close();
     }
 
     @Transactional
