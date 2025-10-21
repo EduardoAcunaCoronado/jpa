@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class JpaApplication implements CommandLineRunner {
@@ -22,10 +24,28 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        findOne();
+        create();
     }
 
-    private void findOne() {
+    @Transactional
+    public void create() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el nombre del person:");
+        String name = sc.nextLine();
+        System.out.println("Introduce el apellido del person:");
+        String lastname = sc.nextLine();
+        System.out.println("Introduce el lenguaje de programación del person:");
+        String programmingLanguage = sc.nextLine();
+        sc.close();
+
+        Person person = new Person(null, name, lastname, programmingLanguage);
+
+        Person personNew = personRepository.save(person);
+        personRepository.findById(personNew.getId()).ifPresent(System.out::println);
+    }
+
+    @Transactional(readOnly = true)
+    public void findOne() {
 //        Person person = null;
 //        Optional<Person> personOptional = personRepository.findById(8L);
 //        if (personOptional.isPresent()) {
@@ -41,7 +61,8 @@ public class JpaApplication implements CommandLineRunner {
 
     }
 
-    private void list() {
+    @Transactional(readOnly = true)
+    public void list() {
         List<Person> persons = personRepository.findByProgrammingLanguageAndName("Java", "Josefa");
         persons.forEach(System.out::println);
 
