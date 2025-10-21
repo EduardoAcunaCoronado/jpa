@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class JpaApplication implements CommandLineRunner {
@@ -21,6 +22,21 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        findOne();
+    }
+
+    private void findOne() {
+//        Person person = null;
+//        Optional<Person> personOptional = personRepository.findById(8L);
+//        if (personOptional.isPresent()) {
+//            person = personOptional.get();
+//        }
+//        System.out.println(person);
+
+        personRepository.findById(5L).ifPresent(System.out::println);
+    }
+
+    private void list() {
         List<Person> persons = personRepository.findByProgrammingLanguageAndName("Java", "Josefa");
         persons.forEach(System.out::println);
 
