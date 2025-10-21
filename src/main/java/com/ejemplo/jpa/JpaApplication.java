@@ -23,5 +23,8 @@ public class JpaApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         List<Person> persons = personRepository.findByProgrammingLanguageAndName("Java", "Josefa");
         persons.forEach(System.out::println);
+
+        List<Object[]> personValues = personRepository.obtenerPersonData("Josefa", "Java");
+        personValues.forEach(p -> System.out.println(p[0] + " " + p[1]));
     }
 }
