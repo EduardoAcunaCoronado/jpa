@@ -24,7 +24,39 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        delete2();
+        personalizedQueries();
+    }
+
+    @Transactional(readOnly = true)
+    public void personalizedQueries() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("===================== Consulta por id =====================");
+        System.out.println("Introduce el id del personalized query");
+        Long id = sc.nextLong();
+
+        Long idDb = personRepository.getIdById(id);
+        System.out.println(idDb);
+
+        String name = personRepository.getNameById(id);
+        System.out.println(name);
+
+        String fullname = personRepository.getFullnameById(id);
+        System.out.println(fullname);
+
+        System.out.println("===================== Consulta los campos personalizados por el id =====================");
+        Object[] personReg = (Object[]) personRepository.obtenerPersonDataById(id);
+        System.out.println("id:" + personReg[0]);
+        System.out.println("name:" + personReg[1]);
+        System.out.println("lastname:" + personReg[2]);
+        System.out.println("programmingLanguage:" + personReg[3]);
+
+        System.out.println("===================== Consulta los campos personalizados =====================");
+        List<Object[]> personList = personRepository.obtenerPersonDataList();
+
+        personList.forEach(item -> System.out.println(item[0].toString() + item[1].toString() + item[2].toString() + item[3].toString()));
+
+        sc.close();
     }
 
     @Transactional
