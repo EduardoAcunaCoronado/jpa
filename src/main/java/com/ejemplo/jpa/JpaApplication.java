@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -24,7 +25,16 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        personalizedQueries();
+        personalizedQueries2();
+    }
+
+    public void personalizedQueries2() {
+        System.out.println("----- PERSONALIZED QUERIES2 -----");
+        List<Object[]> list = personRepository.findAllMixPerson();
+        list.forEach(item -> System.out.println(item[0].toString() + item[1].toString()));
+        System.out.println("----- PERSONALIZED QUERIES3 -----");
+        List<Person> list2 = personRepository.findAllObjectPersonalizedPerson();
+        list2.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
