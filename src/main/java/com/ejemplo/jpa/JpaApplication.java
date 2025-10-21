@@ -24,7 +24,24 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        delete();
+        delete2();
+    }
+
+    @Transactional
+    public void delete2() {
+        personRepository.findAll().forEach(System.out::println);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el id del person");
+        Long id = sc.nextLong();
+
+        Optional<Person> person = personRepository.findById(id);
+        person.ifPresentOrElse(
+                personRepository::delete,
+                () -> System.out.println("No existe")
+        );
+
+        personRepository.findAll().forEach(System.out::println);
+        sc.close();
     }
 
     @Transactional
