@@ -34,6 +34,11 @@ public class JpaApplication implements CommandLineRunner {
 //        System.out.println(person);
 
         personRepository.findById(5L).ifPresent(System.out::println);
+        personRepository.findOneById(5L).ifPresent(System.out::println);
+        personRepository.findOneByName("Josefa").ifPresent(System.out::println);
+        personRepository.findOneLikeName("ose").ifPresent(System.out::println);
+        personRepository.findByNameContaining("ose").ifPresent(System.out::println);
+
     }
 
     private void list() {
