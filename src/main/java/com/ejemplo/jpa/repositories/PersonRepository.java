@@ -1,5 +1,6 @@
 package com.ejemplo.jpa.repositories;
 
+import com.ejemplo.jpa.dto.PersonDTO;
 import com.ejemplo.jpa.entities.Person;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -56,5 +57,8 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
     @Query("select new Person(p.name, p.lastname) from Person p")
     List<Person> findAllObjectPersonalizedPerson();
+
+    @Query("select new com.ejemplo.jpa.dto.PersonDTO(p.name, p.lastname) from Person p")
+    List<PersonDTO> findAllPersonDTO();
 
 }

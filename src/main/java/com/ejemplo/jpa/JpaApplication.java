@@ -1,5 +1,6 @@
 package com.ejemplo.jpa;
 
+import com.ejemplo.jpa.dto.PersonDTO;
 import com.ejemplo.jpa.entities.Person;
 import com.ejemplo.jpa.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class JpaApplication implements CommandLineRunner {
         System.out.println("----- PERSONALIZED QUERIES3 -----");
         List<Person> list2 = personRepository.findAllObjectPersonalizedPerson();
         list2.forEach(System.out::println);
+        System.out.println("----- PERSONALIZED QUERIES4 -----");
+        List<PersonDTO> list3 = personRepository.findAllPersonDTO();
+        list3.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
