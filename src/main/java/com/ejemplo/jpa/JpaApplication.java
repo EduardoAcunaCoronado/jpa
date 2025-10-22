@@ -26,7 +26,20 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        personalizedQueries2();
+        personalizedQueriesDistinct();
+    }
+
+    @Transactional(readOnly = true)
+    public void personalizedQueriesDistinct() {
+        System.out.println("--- Consulta con nombres de personas ---");
+        List<String> names = personRepository.findAllNames();
+        names.forEach(System.out::println);
+        System.out.println("--- Consulta con nombres de personas distintas ---");
+        List<String> namesDistinct = personRepository.findAllNamesDistinct();
+        namesDistinct.forEach(System.out::println);
+        System.out.println("--- Contar distintos lenguajes de programación ---");
+        Long programmingLanguagesDistinctCount = personRepository.findAllProgrammingLanguagesDistinctCount();
+        System.out.println(programmingLanguagesDistinctCount);
     }
 
     public void personalizedQueries2() {
