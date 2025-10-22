@@ -70,4 +70,17 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     @Query("select count(distinct(p.programmingLanguage)) from Person p")
     Long findAllProgrammingLanguagesDistinctCount();
 
+    //@Query("select concat(p.name, ' ', p.lastname) from Person p")
+    @Query("select p.name || ' ' || p.lastname from Person p")
+    List<String> findAllFullnameConcat();
+
+    @Query("select upper(p.name || ' ' || p.lastname) from Person p")
+    List<String> findAllFullnameConcatUpper();
+
+    @Query("select lower(concat(p.name, ' ' , p.lastname)) from Person p")
+    List<String> findAllFullnameConcatLower();
+
+    @Query("select p.id, upper(p.name), lower(p.lastname), upper(p.programmingLanguage) from Person p")
+    List<Object[]> findAllPersonDataListCase();
+
 }
