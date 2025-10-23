@@ -26,7 +26,7 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        personalizedQueriesBetween();
+        update();
     }
 
     public void personalizedQueriesBetween() {
@@ -182,7 +182,7 @@ public class JpaApplication implements CommandLineRunner {
         String programmingLanguage = sc.nextLine();
         sc.close();
 
-        Person person = new Person(null, name, lastname, programmingLanguage);
+        Person person = new Person(null, name, lastname, programmingLanguage, null, null);
 
         Person personNew = personRepository.save(person);
         personRepository.findById(personNew.getId()).ifPresent(System.out::println);
