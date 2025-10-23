@@ -1,6 +1,7 @@
 package com.ejemplo.jpa;
 
 import com.ejemplo.jpa.dto.PersonDTO;
+import com.ejemplo.jpa.entities.Audit;
 import com.ejemplo.jpa.entities.Person;
 import com.ejemplo.jpa.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,7 +183,7 @@ public class JpaApplication implements CommandLineRunner {
         String programmingLanguage = sc.nextLine();
         sc.close();
 
-        Person person = new Person(null, name, lastname, programmingLanguage, null, null);
+        Person person = new Person(null, name, lastname, programmingLanguage, new Audit(null, null));
 
         Person personNew = personRepository.save(person);
         personRepository.findById(personNew.getId()).ifPresent(System.out::println);

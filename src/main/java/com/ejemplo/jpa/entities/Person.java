@@ -25,11 +25,8 @@ public class Person {
     @Column(name = "programming_language")
     private String programmingLanguage;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Embedded
+    private Audit audit;
 
     public Person(String name, String lastname) {
         this.name = name;
@@ -39,12 +36,12 @@ public class Person {
     @PrePersist
     public void prePersist(){
         System.out.println("Pre Persist");
-        this.createdAt = LocalDateTime.now();
+        audit.setCreatedAt(LocalDateTime.now());
     }
 
     @PreUpdate
     public void preUpdate(){
         System.out.println("Pre Update");
-        this.updatedAt = LocalDateTime.now();
+        audit.setUpdatedAt(LocalDateTime.now());
     }
 }
