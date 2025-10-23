@@ -30,20 +30,29 @@ public class JpaApplication implements CommandLineRunner {
     }
 
     public void personalizedQueriesBetween() {
-        System.out.println("--- BETWEEN ID---");
+        System.out.println("--- BETWEEN AND ORDER ID---");
         List<Person> personList = personRepository.findAllBetweenId(2L, 5L);
         personList.forEach(System.out::println);
-        System.out.println("--- BETWEEN NAME ---");
+        System.out.println("--- BETWEEN AND ORDER NAME ---");
         personList = personRepository.findAllBetweenName("E", "S");
         personList.forEach(System.out::println);
 
-        System.out.println("--- BETWEEN ID QUERY METHOD ---");
-        personList = personRepository.findByIdBetween(2L, 5L);
+        System.out.println("--- BETWEEN AND ORDER ID QUERY METHOD ---");
+        personList = personRepository.findByIdBetweenOrderByNameAsc(2L, 5L);
         personList.forEach(System.out::println);
-        System.out.println("--- BETWEEN NAME QUERY METHOD ---");
-        personList = personRepository.findByNameBetween("E", "S");
+        System.out.println("--- BETWEEN AND ORDER NAME QUERY METHOD ---");
+        personList = personRepository.findByNameBetweenOrderByNameDescLastnameAsc("E", "S");
+        personList.forEach(System.out::println);
+
+        System.out.println("--- ORDER ---");
+        personList = personRepository.getAllOrdered();
+        personList.forEach(System.out::println);
+
+        System.out.println("--- ORDER QUERY METHOD ---");
+        personList = personRepository.findAllByOrderByNameAscLastnameDesc();
         personList.forEach(System.out::println);
     }
+
 
     @Transactional(readOnly = true)
     public void personalizedQueriesConcatUpperAndLowerCase() {
