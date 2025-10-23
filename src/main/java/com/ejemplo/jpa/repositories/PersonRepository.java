@@ -83,4 +83,14 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     @Query("select p.id, upper(p.name), lower(p.lastname), upper(p.programmingLanguage) from Person p")
     List<Object[]> findAllPersonDataListCase();
 
+    @Query("select p from Person p where p.id between ?1 and ?2")
+    List<Person> findAllBetweenId(Long id1, Long id2);
+
+    @Query("select p from Person p where p.name between ?1 and ?2")
+    List<Person> findAllBetweenName(String c1, String c2);
+
+    List<Person> findByIdBetween(Long id1, Long id2);
+
+    List<Person> findByNameBetween(String name1, String name2);
+
 }

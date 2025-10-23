@@ -26,7 +26,23 @@ public class JpaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        personalizedQueriesConcatUpperAndLowerCase();
+        personalizedQueriesBetween();
+    }
+
+    public void personalizedQueriesBetween() {
+        System.out.println("--- BETWEEN ID---");
+        List<Person> personList = personRepository.findAllBetweenId(2L, 5L);
+        personList.forEach(System.out::println);
+        System.out.println("--- BETWEEN NAME ---");
+        personList = personRepository.findAllBetweenName("E", "S");
+        personList.forEach(System.out::println);
+
+        System.out.println("--- BETWEEN ID QUERY METHOD ---");
+        personList = personRepository.findByIdBetween(2L, 5L);
+        personList.forEach(System.out::println);
+        System.out.println("--- BETWEEN NAME QUERY METHOD ---");
+        personList = personRepository.findByNameBetween("E", "S");
+        personList.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
